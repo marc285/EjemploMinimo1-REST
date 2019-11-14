@@ -27,10 +27,19 @@ public class TestPedidos {
         gestor.addProducto("bocadillo_jamon", 3.5);
         gestor.addProducto("zumo_naranja", 1.2);
 
-        p = new Pedido("12345");
-        p.addLP(3, "chocolatina");
+        List<LP> lps = new LinkedList<LP>();
+        lps.add(new LP(3,"chocolatina"));
+        lps.add(new LP(2,"zumo_naranja"));
+        lps.add(new LP(1, "bocadillo_jamon"));
+
+        Pedido p = new Pedido("12345",lps);
+
+        /*p = new Pedido("12345");*/
+
+        /*p.addLP(3, "chocolatina");
         p.addLP(2, "zumo_naranja");
         p.addLP(1, "bocadillo_jamon");
+        */
 
         gestor.anotarPedido(p);
     }
@@ -106,9 +115,16 @@ public class TestPedidos {
         Assert.assertEquals("bocadillo_jamon", prueba.get(0).getLP(2).getIDProducto());
 
         //-------Probamos a meter un nuevo pedido--------//
-        Pedido pruebapedido = new Pedido("12345");
-        pruebapedido.addLP(1, "bocata_jamon");
-        pruebapedido.addLP(1, "cocacola");
+        List<LP> lps = new LinkedList<LP>();
+        lps.add(new LP(1, "bocata_jamon"));
+        lps.add(new LP(1, "cocacola"));
+
+        Pedido pruebapedido = new Pedido("12345",lps);
+
+        /*Pedido pruebapedido = new Pedido("12345");
+        pruebapedido.addLP();
+        pruebapedido.addLP();
+         */
 
         gestor.anotarPedido(pruebapedido);
         gestor.servirPedido(); //El pedido anterior ya ha sido servido (quitado de la cola) asi que ahora debería ser servido el nuevo pedido

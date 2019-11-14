@@ -11,10 +11,10 @@ public class Pedido {
 
     }
 
-    public Pedido(String idUser){
+    public Pedido(String idUser, List<LP> lps){
         this();
         this.setIDUsuario(iduser);
-        this.lps = new LinkedList<LP>();
+        this.addLPS(lps);
     }
 
     public String getIDUsuario(){ return this.iduser; }
@@ -26,6 +26,12 @@ public class Pedido {
     }
 
     public LP getLP(int i){ return this.lps.get(i); }
+
+    public void addLPS(List<LP> lps){
+        this.lps = lps;
+    }
+
+    public List<LP> getLPS() {return this.lps; };
 
     public int getLPsize(){ return this.lps.size(); }
 }

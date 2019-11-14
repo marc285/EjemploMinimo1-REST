@@ -33,10 +33,17 @@ public class GestorService {
             gestor.addProducto("bocadillo_jamon", 3.5);
             gestor.addProducto("zumo_naranja", 1.2);
 
-            Pedido p = new Pedido("12345");
-            p.addLP(3, "chocolatina");
+            List<LP> lps = new LinkedList<LP>();
+            lps.add(new LP(3,"chocolatina"));
+            lps.add(new LP(2,"zumo_naranja"));
+            lps.add(new LP(1, "bocadillo_jamon"));
+
+            Pedido p = new Pedido("12345",lps);
+
+            /*p.addLP(3, "chocolatina");
             p.addLP(2, "zumo_naranja");
             p.addLP(1, "bocadillo_jamon");
+            */
 
             gestor.anotarPedido(p);
             gestor.servirPedido();

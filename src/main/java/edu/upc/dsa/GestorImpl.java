@@ -29,7 +29,7 @@ public class GestorImpl implements Gestor {
         this.listaProductos = new LinkedList<Producto>();
     }
 
-    //---Singleton: metodo de acceso estqtico que devuelve una referencia a la (unica) instancia---//
+    //---Singleton: metodo de acceso estatico que devuelve una referencia a la (unica) instancia---//
     public static GestorImpl getInstance(){
         if (instancia == null) instancia = new GestorImpl();
         return instancia;
@@ -62,14 +62,20 @@ public class GestorImpl implements Gestor {
         }
     }
 
-    public void anotarPedido(Pedido p) {
-        colaPedidos.add(p);
+    public Pedido anotarPedido(Pedido p) {
+        this.colaPedidos.add(p);
 
         log.info("Nuevo pedido añadido a la cola: ");
         log.info(logPedido(p));
 
         log.info("Cola actual: ");
         log.info(logColaPedidos((LinkedList<Pedido>) this.colaPedidos));
+
+        return p;
+    }
+
+    public Pedido anotarPedido(String idusr, List<LP> lps){
+        return this.anotarPedido(new Pedido(idusr,lps));
     }
 
     public void servirPedido() throws NoPedidosException{
@@ -134,18 +140,26 @@ public class GestorImpl implements Gestor {
     }
 
     //-----------------------------Funciones para modificar los atributos----------------------------//
-    public void addUsuario(String k, String nom){
-        Usuario u = new Usuario(k,nom);
-        this.tablaUsuarios.put(k,u);
+    public Usuario addUsuario(Usuario us){
+        this.tablaUsuarios.put(us.getID(), us);
+        return us;
+    };
+    public Usuario addUsuario(String k, String nom){
+        return this.addUsuario(new Usuario(k, nom));
     }
+
     public HashMap<String, Usuario> getUsuarios(){
         return this.tablaUsuarios;
     }
 
-    public void addProducto(String nombre, double precio) {
-        Producto p = new Producto(nombre, precio);
+    public Producto addProducto(Producto p){
         this.listaProductos.add(p);
+        return p;
+    };
+    public Producto addProducto(String nombre, double precio) {
+        return this.addProducto(new Producto(nombre,precio));
     }
+
     public LinkedList<Producto> getProductos(){
         return (LinkedList<Producto>) this.listaProductos;
     }
